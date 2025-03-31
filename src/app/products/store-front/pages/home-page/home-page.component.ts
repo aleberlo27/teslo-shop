@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { ProductPageComponent } from "../product-page/product-page.component";
+import { ProductCardComponent } from "../../../components/product-card/product-card.component";
 
 @Component({
   selector: 'app-home-page',
-  imports: [ProductPageComponent],
+  imports: [ProductCardComponent],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {

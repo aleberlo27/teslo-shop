@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
+import { ProductsService } from '@products/services/products.service';
 //import { ProductCardComponent } from "../../../components/product-card/product-card.component";
 
 @Component({
@@ -8,9 +10,15 @@ import { ProductCardComponent } from '@products/components/product-card/product-
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {
-  products = signal([
+  private productService = inject(ProductsService)
 
-  ]);
+  //Devuelve la respuesta del servicio de products
+  productsResource = rxResource({
+    request: () => ({}),
+    loader: ({request}) => {
+      return this.productService.getProducts();
+    },
+  });
 
 
 }

@@ -6,9 +6,11 @@
 
 <!-- PRODUCTO -->
 @if (productResource.hasValue() ) {
-  <div class="grid grid-cols-2 sm:grid-cols-2 gap-3">
+  <div class="grid grid-cols-2 sm:grid-cols-2 gap-3 w-full">
      <!-- IMÁGEN DE PRODUCTO -->
-      <p>CARRUSEL DE IMÁGENES</p>
+      <div class="w-full">
+        <product-carousel [images]="productResource.value().images" class="block w-full"/>
+      </div>
       <div>
         <h2 class="text-2xl font-bold">
           {{ productResource.value().title }}

@@ -2,7 +2,7 @@
 <div class="card bg-base-100 shadow-sm py-3 w-autoopacity-0 animate-fade-in-up hover:scale-105 transition-transform duration-600">
   <figure>
     <img
-      [src]="imageUrl()"
+      [src]="product().images[0] | productImage"
       [alt]="product().title" />
   </figure>
   <div class="card-body">

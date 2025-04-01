@@ -6,10 +6,13 @@
       [alt]="product().title" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title font-bold">{{product().title}}</h2>
+    <h2 class="card-title font-bold hover:underline cursor-pointer"
+    [routerLink]="['/product', product().slug]"
+    >
+    {{product().title}}</h2>
     <p>{{product().description | slice: 0:70}}</p>
     <div class="card-actions justify-end">
-      <a class="link link-success" [routerLink]="['/product', product().slug]"> Ver </a>
+      <a class="link link-success" [routerLink]="['/product', product().slug]" > Ver </a>
     </div>
   </div>
 </div>

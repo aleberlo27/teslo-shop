@@ -2,14 +2,14 @@
 <div class="card bg-base-100 shadow-sm py-3 w-autoopacity-0 animate-fade-in-up hover:scale-105 transition-transform duration-600">
   <figure>
     <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-      alt="Shoes" />
+      [src]="imageUrl()"
+      [alt]="product().title" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">Card Title</h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <h2 class="card-title font-bold">{{product().title}}</h2>
+    <p>{{product().description | slice: 0:70}}</p>
     <div class="card-actions justify-end">
-      <a class="link link-success" [routerLink]="['/product', 't-shirt']"> Ver </a>
+      <a class="link link-success" [routerLink]="['/product', product().slug]"> Ver </a>
     </div>
   </div>
 </div>

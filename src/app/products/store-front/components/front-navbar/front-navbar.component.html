@@ -1,6 +1,6 @@
 <div class="navbar bg-base-100 shadow-sm">
   <div class="navbar-start">
-    <div class="dropdown">
+    <div class="dropdown" style="color: #5C7285;">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
       </div>
@@ -8,47 +8,48 @@
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li>
-          <a routerLink="/gender/men" class="btn btn-ghost" routerLinkActive="text-secondary">
+          <a routerLink="/gender/men" class="btn btn-ghost" routerLinkActive="text-succes">
             Hombres
           </a>
         </li>
         <li>
-          <a routerLink="/gender/woman" class="btn btn-ghost" routerLinkActive="text-secondary">
+          <a routerLink="/gender/women" class="btn btn-ghost" routerLinkActive="text-succes">
             Mujeres
           </a>
         </li>
         <li>
-          <a routerLink="/gender/kids" class="btn btn-ghost" routerLinkActive="text-secondary">
+          <a routerLink="/gender/kid" class="btn btn-ghost" routerLinkActive="text-succes">
             Niños
           </a>
         </li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl font-[Montserrat]" routerLink="/">
+    <a class="btn btn-ghost text-xl font-[Montserrat]" routerLink="/" >
       Teslo
-      <span class="text-secondary" style="color: #9cd2d1">  | Shop </span>
+      <span class="text-secondary" style="color: #818C78;">  | Shop </span>
+      <span class="text text-xl">  | Home </span>
     </a>
   </div>
-  <div class="navbar-center hidden lg:flex">
+  <div class="navbar-center hidden lg:flex" style="color: #5C7285;">
     <ul class="menu menu-horizontal px-1">
       <li>
-        <a routerLink="/gender/men" class="btn btn-ghost" routerLinkActive="text-secondary">
+        <a routerLink="/gender/men" class="btn btn-ghost" routerLinkActive="text-default">
           Hombres
         </a>
       </li>
       <li>
-        <a routerLink="/gender/woman" class="btn btn-ghost" routerLinkActive="text-secondary">
+        <a routerLink="/gender/women" class="btn btn-ghost" routerLinkActive="text-default">
           Mujeres
         </a>
       </li>
       <li>
-        <a routerLink="/gender/kids" class="btn btn-ghost" routerLinkActive="text-secondary">
+        <a routerLink="/gender/kid" class="btn btn-ghost" routerLinkActive="text-default">
           Niños
         </a>
       </li>
     </ul>
   </div>
-  <div class="navbar-end">
+  <!-- <div class="navbar-end">
     <a class="btn">Button</a>
-  </div>
+  </div> -->
 </div>

@@ -12,21 +12,18 @@ const baseUrl = environment.baseUrl;
 export class ProductsService {
   private http = inject(HttpClient);
 
-  getProducts(options:Options): Observable<ProductsResponse>{
-    //El límite por defecto va a ser 9, el offset 0 y el género vacío
-    //Son los valores que podemos meter por parámetro a la api:
-    // 'localhost:3000/api/products?limit=9&offset=0&gender=' ''
-    const{ limit = 9, offset = 0, gender = ' '} = options;
-    return this.http.get<ProductsResponse>(`${baseUrl}/products`, {
-      params: {
-        limit,
-        offset,
-        gender,
-      },
-    })/*
-    .pipe(
-      tap( resp => console.log(resp))
-    ) */;
+  getProducts(options: Options): Observable<ProductsResponse> {
+    const { limit = 20, offset = 0, gender ='' } = options;
+
+    return this.http
+      .get<ProductsResponse>(`${baseUrl}/products`, {
+        params: {
+          limit,
+          offset,
+          gender,
+        },
+      })/*
+      .pipe(tap((resp) => console.log(resp))) */;
   }
 
   getProductByIdSlug(idSlug: string): Observable<Product>{

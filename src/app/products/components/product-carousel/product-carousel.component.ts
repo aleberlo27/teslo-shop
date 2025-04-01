@@ -17,17 +17,6 @@ import { ProductImagePipe } from "../../pipes/product-image.pipe";
       height: auto;
 
     }
-    .swiper-pagination-bullet {
-      background-color: white !important;
-      opacity: 0.8;
-    }
-    .swiper-pagination-bullet-active {
-      background-color: #4a90e2 !important;
-    }
-    .product-carousel {
-      position: relative !important;
-    }
-
   `,
 })
 export class ProductCarouselComponent implements AfterViewInit {

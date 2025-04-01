@@ -2,7 +2,7 @@
 <div class="card bg-base-100 shadow-sm py-3 w-autoopacity-0 animate-fade-in-up hover:scale-105 transition-transform duration-600">
   <figure>
     <img
-      [src]="product().images[0] | productImage"
+      [src]="product().images | productImage"
       [alt]="product().title" />
   </figure>
   <div class="card-body">
@@ -10,9 +10,9 @@
     [routerLink]="['/product', product().slug]"
     >
     {{product().title}}</h2>
-    <p>{{product().description | slice: 0:70}}</p>
+    <p>{{product().description | slice: 0:70}}...</p>
     <div class="card-actions justify-end">
-      <a class="link link-success" [routerLink]="['/product', product().slug]" > Ver </a>
+      <a class="link" style="color: #818C78;" [routerLink]="['/product', product().slug]" > Ver </a>
     </div>
   </div>
 </div>

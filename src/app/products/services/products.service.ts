@@ -13,7 +13,7 @@ export class ProductsService {
   private http = inject(HttpClient);
 
   getProducts(options: Options): Observable<ProductsResponse> {
-    const { limit = 20, offset = 0, gender ='' } = options;
+    const { limit = 12, offset = 0, gender ='' } = options;
 
     return this.http
       .get<ProductsResponse>(`${baseUrl}/products`, {
@@ -22,8 +22,8 @@ export class ProductsService {
           offset,
           gender,
         },
-      })/*
-      .pipe(tap((resp) => console.log(resp))) */;
+      })
+      .pipe(tap((resp) => console.log(resp)));
   }
 
   getProductByIdSlug(idSlug: string): Observable<Product>{

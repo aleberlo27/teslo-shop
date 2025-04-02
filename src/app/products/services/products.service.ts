@@ -12,6 +12,7 @@ const baseUrl = environment.baseUrl;
 export class ProductsService {
   private http = inject(HttpClient);
   private productsCache = new Map<string, ProductsResponse>();
+  private productCache = new Map<string, Product>();
 
   getProducts(options: Options): Observable<ProductsResponse> {
     const { limit = 12, offset = 0, gender ='' } = options;
@@ -39,7 +40,16 @@ export class ProductsService {
   }
 
   getProductByIdSlug(idSlug: string): Observable<Product>{
-    return this.http.get<Product>(`${baseUrl}/products/${idSlug}`);
+    //Vemos si el idSlug del producto está en la caché del producto
+    if(this.productCache.has(idSlug)){
+      //Retornamos un observable
+      return of(this.productCache.get(idSlug)!);
+    }
+    return this.http.get<Product>(`${baseUrl}/products/${idSlug}`)
+    .pipe(
+      tap((product) => console.log(product)),
+      tap((product) => this.productCache.set(idSlug, product)),
+    );
   }
 
 }

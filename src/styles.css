@@ -17,3 +17,17 @@
 .animate-fade-in-up {
   animation: fade-in-up 2.5s ease-out forwards;
 }
+
+/* FONTS */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/Montserrat-Medium.ttf')
+}
+
+h1,
+h2,
+h3,
+h4,
+body {
+  font-family: 'Montserrat', serif;
+}

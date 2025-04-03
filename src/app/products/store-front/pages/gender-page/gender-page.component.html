@@ -4,10 +4,6 @@
 </h1>
 <div class="border-b-4 w-full mx-auto" style="color: #5C7285;"></div>
 
-<!-- PAGINACIÓN -->
-<app-pagination [pages]="productsResource.value()?.pages ?? 0"
-[currentPage]="paginationService.currentPage()" />
-
 <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-2 gap-3">
 <!--   @for (product of products(); track $index) {
  -->
@@ -18,3 +14,7 @@
   }
 </div>
 
+
+<!-- PAGINACIÓN -->
+<app-pagination [pages]="productsResource.value()?.pages ?? 0"
+[currentPage]="paginationService.currentPage()" />

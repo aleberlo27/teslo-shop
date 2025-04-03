@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertErrorComponent } from "../../components/alert-error/alert-error.component";
+import { AuthService } from '@auth/services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -10,6 +11,8 @@ import { AlertErrorComponent } from "../../components/alert-error/alert-error.co
 })
 export class LoginPageComponent {
   fb = inject(FormBuilder);
+  authService = inject(AuthService);
+
   hasError = signal(false);
   isPosting = signal(false);
 
@@ -29,7 +32,10 @@ export class LoginPageComponent {
 
     const { email = '' , password = '' } = this.loginForm.value;
 
-    console.log({email, password});
+    this.authService.login(email!, password!).subscribe(resp =>{
+      console.log(resp)
+    });
+
   }
 }
 

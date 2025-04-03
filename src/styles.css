@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, night, caramellatte, abyss;
+  themes: light --default, dark --prefersdark, abyss;
 };
 
 @keyframes fade-in-up {
@@ -15,8 +15,14 @@
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 2.5s ease-out forwards;
+  animation: fade-in-up 2s ease-out forwards;
 }
+
+
+.animate-fade-in-up-error {
+  animation: fade-in-up 1s ease-out forwards;
+}
+
 
 /* FONTS */
 @font-face {

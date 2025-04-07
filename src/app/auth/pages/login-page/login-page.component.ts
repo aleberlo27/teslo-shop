@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlertErrorComponent } from "../../components/alert-error/alert-error.component";
 import { AuthService } from '@auth/services/auth.service';
@@ -15,6 +15,8 @@ export class LoginPageComponent {
 
   hasError = signal(false);
   isPosting = signal(false);
+
+  router = inject(Router);
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -32,8 +34,14 @@ export class LoginPageComponent {
 
     const { email = '' , password = '' } = this.loginForm.value;
 
-    this.authService.login(email!, password!).subscribe(resp =>{
-      console.log(resp)
+    //Para que si el email y la password es válida redirija a la página principal de nuestra app
+    // si no son válidos hasError se setea a true.
+    this.authService.login(email!, password!).subscribe((isAuthenticated) =>{
+      if(isAuthenticated){
+        this.router.navigateByUrl('/');
+        return;
+      }
+      this.hasError.set(true);
     });
 
   }

@@ -49,7 +49,18 @@
       </li>
     </ul>
   </div>
-  <!-- <div class="navbar-end">
-    <a class="btn">Button</a>
-  </div> -->
+  <div class="navbar-end gap-4">
+    @if( authService.authStatus() == 'authenticated'){
+      <button class="btn btn-ghost">{{authService.user()?.fullName}}</button>
+      <button class="btn btn-sm btn-error" (click)="authService.logout()">Salir</button>
+    }
+    <!--  -->
+    @else if (authService.authStatus() == 'not-authenticated') {
+      <button class="btn btn-accent" routerLink="/auth/login">Login</button>
+    }
+    <!--  -->
+    @else {
+      <a class="btn btn-ghost">...</a>
+    }
+  </div>
 </div>

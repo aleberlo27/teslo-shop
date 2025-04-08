@@ -37,49 +37,48 @@ export class AuthService {
       email: email,
       password: password,
     }).pipe(
-      tap(resp => {
-        // Seteamos el user y el token con lo que nos devuelve la respuesta http
-        this._user.set(resp.user);
-        this._authStatus.set('authenticated');
-        this._token.set(resp.token);
-
-        //Guardamos el token en el localStorage (Application en inspeccionar)
-        // para que no se pierda la info cuando recargue
-        localStorage.setItem('token', resp.token);
-      }),
-      map( () => true),
-      catchError( (error: any) => {
-        this._user.set(null);
-        this._token.set(null);
-        this._authStatus.set('not-authenticated');
-        return of(false);
-      }),
+      map(resp => this.handleAuthSucces(resp)),
+      catchError( (error: any) => this.handleAuthError(error)),
     );
   }
 
   checkStatus(): Observable<boolean>{
     const token = localStorage.getItem('token');
-    if(!token) return of(false);
+    if(!token){
+      this.logout();
+      return of(false);
+    }
     return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
     }).pipe(
-      tap(resp => {
-        this._user.set(resp.user);
-        this._authStatus.set('authenticated');
-        this._token.set(resp.token);
-
-        localStorage.setItem('token', resp.token);
-      }),
-      map( () => true),
-      catchError( (error: any) => {
-        this._user.set(null);
-        this._token.set(null);
-        this._authStatus.set('not-authenticated');
-        return of(false);
-      }),
+      map(resp => this.handleAuthSucces(resp)),
+      catchError( (error: any) => this.handleAuthError(error)),
     )
   }
 
+  logout(){
+    this._user.set(null);
+    this._token.set(null);
+    this._authStatus.set('not-authenticated');
+    localStorage.removeItem('token');
+  }
+
+  private handleAuthSucces(resp: AuthResponse){
+    // Seteamos el user y el token con lo que nos devuelve la respuesta http
+    this._user.set(resp.user);
+    this._authStatus.set('authenticated');
+    this._token.set(resp.token);
+
+    //Guardamos el token en el localStorage (Application en inspeccionar)
+    // para que no se pierda la info cuando recargue
+    localStorage.setItem('token', resp.token);
+    return true;
+  }
+
+  private handleAuthError(error: any){
+    this.logout();
+    return of(false);
+  }
 }

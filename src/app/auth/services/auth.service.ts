@@ -6,6 +6,7 @@ import { AuthResponse } from '@auth/interfaces/auth-response.interface';
 import { User } from '@auth/interfaces/user.iterface';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 const baseUrl = environment.baseUrl
@@ -17,6 +18,7 @@ export class AuthService {
   private _token = signal<string|null>(localStorage.getItem('token'));
 
   private http = inject(HttpClient);
+  //router = inject(Router);
 
   checkSatatusResource = rxResource({
     loader:() => this.checkStatus(),
@@ -64,8 +66,9 @@ export class AuthService {
     this._token.set(null);
     this._authStatus.set('not-authenticated');
 
+    //this.router.navigateByUrl('/auth/login');
     //TODO: REVERTIR
-    //localStorage.removeItem('token');
+    localStorage.removeItem('token');
   }
 
   private handleAuthSucces(resp: AuthResponse){

@@ -32,6 +32,8 @@ export class AuthService {
   });
   user = computed<User|null>(() => this._user());
   token = computed(this._token);
+  //TODO: sacar el campo rol del user
+  isAdmin = computed<boolean>(() => this._user()?.roles.includes('admin') ?? false);
 
   // ¡¡POST LOGIN!!
   login(email:string, password:string): Observable<boolean>{
@@ -66,9 +68,9 @@ export class AuthService {
     this._token.set(null);
     this._authStatus.set('not-authenticated');
 
-    //this.router.navigateByUrl('/auth/login');
-    //TODO: REVERTIR
     localStorage.removeItem('token');
+    //console.log('Cerrado de sesión.')
+    //this.router.navigateByUrl('/auth/login');
   }
 
   private handleAuthSucces(resp: AuthResponse){

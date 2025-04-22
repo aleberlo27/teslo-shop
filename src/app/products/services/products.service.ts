@@ -116,4 +116,16 @@ export class ProductsService {
     console.log('Caché actualizado.')
   }
 
+  uploadImages(images?: FileList):Observable<string[]>{
+    if(!images)return of([]);
+
+    return of([]);
+  }
+
+  uploadImage(image: File):Observable<string>{
+    if(!image)return of();
+
+    return of();
+  }
+
 }

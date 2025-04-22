@@ -1,5 +1,5 @@
 
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductCarouselComponent } from "../../../../products/components/product-carousel/product-carousel.component";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,6 +22,16 @@ export class ProductDetailsComponent implements OnInit {
   fb = inject(FormBuilder);
 
   saved = signal(false);
+  tempImages = signal<string[]>([]);
+  imageFileList: FileList|undefined = undefined;
+  imagesToCarousel = computed(() => {
+    const currentProductImages = [
+      ...this.product().images,
+      ...this.tempImages(),
+    ];
+
+    return currentProductImages;
+  });
 
   productService = inject(ProductsService);
 
@@ -92,4 +102,16 @@ export class ProductDetailsComponent implements OnInit {
       this.saved.set(false)
     }, 3000);
   }
+
+  onFilesChanged(event: Event) {
+    const fileList = (event.target as HTMLInputElement).files;
+    this.imageFileList = fileList ?? undefined;
+
+    const imageUrls = Array.from(fileList ?? []).map(file => {
+      return URL.createObjectURL(file);
+    });
+    this.tempImages.set(imageUrls);
+    //console.log(imageUrls);
+  }
+
 }

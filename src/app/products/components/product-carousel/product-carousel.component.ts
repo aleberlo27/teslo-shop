@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, input, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, input, OnChanges, SimpleChanges, viewChild } from '@angular/core';
 //IMPORTS DE SWIPER (antes hacer un npm install swiper)
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -19,17 +19,40 @@ import { ProductImagePipe } from "../../pipes/product-image.pipe";
     }
   `,
 })
-export class ProductCarouselComponent implements AfterViewInit {
+export class ProductCarouselComponent implements AfterViewInit, OnChanges {
 
   images = input.required<string[]>();
   //Cogemos el elemento del html a través de la referencia: swiperDiv
   swiperDiv = viewChild.required<ElementRef>('swiperDiv');
+  swiper: Swiper|undefined = undefined;
 
   ngAfterViewInit() {
+    this.swiperInit();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['images'].firstChange){
+      return;
+    }
+    if(!this.swiper) return;
+    this.swiper.destroy(true, true);
+
+    const paginationElement: HTMLDivElement =
+      this.swiperDiv().nativeElement?.querySelector('.swiper-pagination');
+
+    paginationElement.innerHTML = '';
+
+    setTimeout(() => {
+      this.swiperInit();
+    }, 100);
+  }
+
+
+  swiperInit(){
     const element = this.swiperDiv().nativeElement;
     const shouldLoop = this.images.length > 1; // Activar loop solo si hay más de 1 imagen
     if(!element) return;
-    const swiper = new Swiper(element, {
+    this.swiper = new Swiper(element, {
       // Optional parameters
       direction: 'horizontal',
       loop: shouldLoop,

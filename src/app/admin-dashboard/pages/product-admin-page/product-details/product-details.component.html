@@ -130,9 +130,22 @@
       </button>
     </div>
 
-    <product-carousel [images]="product().images" />
+    <!-- <product-carousel [images]="product().images" /> -->
+    <!-- Para la carga de imágenes en el carrousel recién cargadas en el input de archivos -->
+    <product-carousel [images]="imagesToCarousel()"/>
 
-    <input type="file" class="file-input file-input-bordered w-full mt-4" />
+    <input
+      type="file"
+      multiple
+      accept="image/*"
+      class="file-input file-input-bordered w-full mt-4"
+      (change)="onFilesChanged($event)"
+      />
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        @for (image of tempImages(); track image) {
+          <img [src]="image" alt="TemporalImages" class="w-full object-cover rounded-3xl"/>
+        }
+      </div>
   </div>
 </form>
 

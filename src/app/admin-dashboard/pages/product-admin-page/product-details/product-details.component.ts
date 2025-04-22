@@ -5,6 +5,7 @@ import { ProductCarouselComponent } from "../../../../products/components/produc
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { FormUtils } from '@utils/form-utils';
+import { getCurrencySymbol } from '@angular/common';
 
 @Component({
   selector: 'product-details',
@@ -38,6 +39,17 @@ export class ProductDetailsComponent implements OnInit {
     //this.productForm.reset(formLike as any);
     this.productForm.patchValue(formLike as any);
     this.productForm.patchValue({tags: formLike.tags?.join(',')});
+  }
+
+  onSizeClicked(size: string){
+    const currentSizes = this.productForm.value.sizes ?? [];
+    if(currentSizes.includes(size)){
+      currentSizes.splice(currentSizes.indexOf(size), 1);
+    }else{
+      currentSizes.push(size);
+    }
+
+    this.productForm.patchValue({sizes: currentSizes});
   }
 
   ngOnInit(): void {

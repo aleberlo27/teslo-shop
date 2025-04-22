@@ -6,10 +6,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { FormUtils } from '@utils/form-utils';
 import { getCurrencySymbol } from '@angular/common';
+import { FormErrorLabelComponent } from "../../../../shared/Components/form-error-label/form-error-label.component";
 
 @Component({
   selector: 'product-details',
-  imports: [ProductCarouselComponent, ReactiveFormsModule],
+  imports: [ProductCarouselComponent, ReactiveFormsModule, FormErrorLabelComponent],
   templateUrl: './product-details.component.html',
 })
 export class ProductDetailsComponent implements OnInit {
@@ -31,10 +32,6 @@ export class ProductDetailsComponent implements OnInit {
 
   sizes = ['XS','S','M', 'L', 'XL', 'XXL'];
 
-  onSubmit() {
-    console.log(this.productForm.value)
-  }
-
   setFormValue(formLike: Partial<Product>){
     //this.productForm.reset(formLike as any);
     this.productForm.patchValue(formLike as any);
@@ -54,6 +51,11 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.setFormValue(this.product());
+  }
+
+  onSubmit() {
+    const isValid = this.productForm.valid;
+    console.log(this.productForm.value, {isValid});
   }
 
 }

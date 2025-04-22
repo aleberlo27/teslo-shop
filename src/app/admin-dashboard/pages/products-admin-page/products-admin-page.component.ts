@@ -6,10 +6,11 @@ import { ProductsService } from '@products/services/products.service';
 import { PaginationService } from '@shared/Components/pagination/pagination.service';
 import { LiteralPrimitive } from '@angular/compiler';
 import { producerUpdateValueVersion } from '@angular/core/primitives/signals';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products-admin-page',
-  imports: [ProductTableComponent, PaginationComponent],
+  imports: [ProductTableComponent, PaginationComponent, RouterLink],
   templateUrl: './products-admin-page.component.html',
 })
 export class ProductsAdminPageComponent {

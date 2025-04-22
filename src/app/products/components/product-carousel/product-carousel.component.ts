@@ -22,17 +22,17 @@ import { ProductImagePipe } from "../../pipes/product-image.pipe";
 export class ProductCarouselComponent implements AfterViewInit {
 
   images = input.required<string[]>();
-
   //Cogemos el elemento del html a través de la referencia: swiperDiv
   swiperDiv = viewChild.required<ElementRef>('swiperDiv');
 
   ngAfterViewInit() {
     const element = this.swiperDiv().nativeElement;
+    const shouldLoop = this.images.length > 1; // Activar loop solo si hay más de 1 imagen
     if(!element) return;
     const swiper = new Swiper(element, {
       // Optional parameters
       direction: 'horizontal',
-      loop: true,
+      loop: shouldLoop,
       //Con los módulos sale los puntitos de cuántas imágenes hay en el swiper (paginacion)
       modules:[
         Navigation, Pagination

@@ -3,10 +3,9 @@ import { Component, inject, input, OnInit } from '@angular/core';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductCarouselComponent } from "../../../../products/components/product-carousel/product-carousel.component";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { FormUtils } from '@utils/form-utils';
-import { getCurrencySymbol } from '@angular/common';
 import { FormErrorLabelComponent } from "../../../../shared/Components/form-error-label/form-error-label.component";
+import { ProductsService } from '@products/services/products.service';
 
 @Component({
   selector: 'product-details',
@@ -16,6 +15,7 @@ import { FormErrorLabelComponent } from "../../../../shared/Components/form-erro
 export class ProductDetailsComponent implements OnInit {
 
   product = input.required<Product>();
+  productService = inject(ProductsService);
   fb = inject(FormBuilder);
 
   productForm = this.fb.group({
@@ -55,7 +55,19 @@ export class ProductDetailsComponent implements OnInit {
 
   onSubmit() {
     const isValid = this.productForm.valid;
-    console.log(this.productForm.value, {isValid});
+    this.productForm.markAllAsTouched();
+
+    if(!isValid) return;
+
+    const formValue = this.productForm.value;
+
+    const productLike: Partial<Product> ={
+      ...(formValue as any),
+      tags: formValue.tags?.toLowerCase().split(',').map(
+        tag => tag.trim()) ?? [],
+    }
+
+    this.productService.updateProduct(productLike);
   }
 
 }

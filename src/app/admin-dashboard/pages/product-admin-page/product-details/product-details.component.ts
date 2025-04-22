@@ -67,7 +67,11 @@ export class ProductDetailsComponent implements OnInit {
         tag => tag.trim()) ?? [],
     }
 
-    this.productService.updateProduct(productLike);
+    this.productService.updateProduct(this.product().id, productLike).subscribe(
+      product => {
+        console.log('Producto actualizado');
+      }
+    );
   }
 
 }
